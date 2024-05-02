@@ -1,0 +1,33 @@
+# グーチョキパーの手を配列に格納
+hands=("グー" "チョキ" "パー")
+
+# ユーザーの手を受け付ける
+read -p "あなたの手を選んでください（グー、チョキ、パー）: " user_hand
+
+# ユーザーの手を検証する
+case $user_hand in
+        "グー" | "チョキ" | "パー")
+                ;;
+        *)
+                echo "無効な手が入力されました。"
+                exit 1
+                ;;
+esac
+
+# コンピューターの手をランダムに選択
+computer_index=$(($RANDOM % ${#hands[@]}))
+computer_hand=${hands[$computer_index]}
+
+# 結果を表示
+echo "コンピューターの手： $computer_hand"
+
+# 勝敗を判定
+if [ "$user_hand" == "$computer_hand" ]; then
+        echo "引き分けです！"
+elif [[ ( "$user_hand" == "グー" && "$computer_hand" == "チョキ" ) || \
+        ( "$user_hand" == "チョキ" && "$computer_hand" == "パー" ) || \
+        ( "$user_hand" == "パー" && "$computer_hand" == "グー" ) ]]; then
+        echo "あなたの勝ちです！！"
+else
+        echo "コンピューターの勝ちです！！"
+fi
